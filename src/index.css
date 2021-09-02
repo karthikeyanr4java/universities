@@ -33,3 +33,13 @@ code {
 .dataTable {
   margin-top: 5%;
 }
+
+.rdt_TableHeadRow {
+  background-color: #4e52cc !important;
+  border-radius: 6px;
+}
+
+.rdt_TableCol {
+  color: #ffff !important;
+  font-size: 16px !important;
+}

@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Gitea checkout') {
             steps {
-                git 'http://localhost:3000/cicd/universities.git'
+                git 'https://github.com/karthikeyanr4java/universities.git'
             }
         }
         /*

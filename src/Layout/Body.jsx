@@ -1,63 +1,42 @@
-import React, { useState, useLayoutEffect  } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import Searchable from "react-searchable-dropdown";
-import DataTable, { createTheme } from "react-data-table-component";
+import DataTable from "react-data-table-component";
 import axios from "axios";
-
-createTheme("solarized", {
-  text: {
-    primary: "#268bd2",
-    secondary: "#2aa198",
-  },
-  background: {
-    default: "#002b36",
-  },
-  context: {
-    background: "#cb4b16",
-    text: "#FFFFFF",
-  },
-  divider: {
-    default: "#073642",
-  },
-  action: {
-    button: "rgba(0,0,0,.54)",
-    hover: "rgba(0,0,0,.08)",
-    disabled: "rgba(0,0,0,.12)",
-  },
-});
 
 const columns = [
   {
     name: "name",
-    selector: "name",
+    selector: row => row.name,
     sortable: true,
-    right: true,
   },
   {
     name: "Country",
-    selector: "country",
+    selector: row => row.country,
     sortable: true,
   },
   {
     name: "State / Province",
-    selector: "stateprovince",
+    selector: row => row.stateprovince,
     sortable: true,
-    right: true,
   },
   {
     name: "Website",
-    selector: "webpages",
+    selector: row => <a href={row.webpages} target="_blank">{row.webpages}</a>,
     sortable: true,
-    right: true,
   },
   {
     name: "Domains",
-    selector: "domains",
+    selector: row => row.domains,
     sortable: true,
-    right: true,
   },
 ];
 
-// const countries = [{ value: "chocolate", label: "Chocolate" }];
+const paginationOptions = {
+	rowsPerPageText: 'Rows per Page',
+	rangeSeparatorText: 'Of',
+	selectAllRowsItem: true,
+	selectAllRowsItemText: 'All',
+};
 
 export function Body() {
   const getCountries = () => {
@@ -75,19 +54,21 @@ export function Body() {
   };
 
   const getUniversities = () => {
-    axios.get(`http://universities.hipolabs.com/search?country=${country}`).then((response) => {
-      const list = [];
-      for (var i = 0; i < response.data.length; i++) {
-        list.push({
-          name: response.data[i].name,
-          country: response.data[i].country,
-          stateprovince: response.data[i].state,
-          webpages: response.data[i].web_pages[0],
-          domains: response.data[i].domains[0]
-        });
-      }
-      setUniversityList(list);
-    });
+    axios
+      .get(`http://universities.hipolabs.com/search?country=${country}`)
+      .then((response) => {
+        const list = [];
+        for (var i = 0; i < response.data.length; i++) {
+          list.push({
+            name: response.data[i].name,
+            country: response.data[i].country,
+            stateprovince: response.data[i].state,
+            webpages: response.data[i].web_pages[0],
+            domains: response.data[i].domains[0],
+          });
+        }
+        setUniversityList(list);
+      });
   };
 
   const [countries, setCountries] = useState([]);
@@ -95,7 +76,7 @@ export function Body() {
   const [universityList, setUniversityList] = useState();
 
   useLayoutEffect(() => {
-    getCountries()
+    getCountries();
   }, []);
 
   return (
@@ -120,7 +101,7 @@ export function Body() {
         </button>
       </div>
       <div className="dataTable">
-        <DataTable style={{marginTop: '5%'}} title="Universities" columns={columns} data={universityList} />
+        <DataTable columns={columns} data={universityList} pagination paginationComponentOptions={paginationOptions} />
       </div>
     </div>
   );
