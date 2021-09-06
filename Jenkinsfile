@@ -9,7 +9,8 @@ pipeline {
     stages {
         stage('Gitea checkout') {
             steps {
-                git 'https://github.com/karthikeyanr4java/universities.git'
+                // git 'https://github.com/karthikeyanr4java/universities.git'
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/karthikeyanr4java/universities.git'
             }
         }
         /*
