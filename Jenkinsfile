@@ -23,8 +23,8 @@ pipeline {
         */
         stage('Run Test') {
             steps {
-                sh "npm install"
-                sh "npm run jest"
+                bat "npm install"
+                bat "npm run jest"
             }
             post {
                 always {
