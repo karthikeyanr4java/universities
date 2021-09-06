@@ -28,15 +28,20 @@ pipeline {
             }
             post {
                 always {
-                    /*publishHTML target: [
-                        allowMissing         : false,
-                        alwaysLinkToLastBuild: false,
-                        keepAll             : true,
-                        reportDir            : 'coverage',
-                        reportFiles          : 'index.html',
-                        reportName           : 'Coverage Report'
-                    ]*/
                     step([$class: 'CoberturaPublisher', coberturaReportFile: '**/cobertura-coverage.xml'])
+                }
+            }
+        }
+        stage('Sonarqube Analysis') {
+            steps {
+                withSonarQubeEnv('Your Sonar Server Name here') {
+                    bat '''
+                        ${JENKINS_HOME}/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube_Scanner/bin/sonar-scanner \
+                        -Dsonar.host.url=http://localhost:9000/ \
+                        -Dsonar.login=sonarqubecred \
+                        -Dsonar.projectKey=Universities \
+                        -Dsonar.projectName=Universities-$BUILD_NUMBER
+                    '''
                 }
             }
         }
