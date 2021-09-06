@@ -32,17 +32,9 @@ pipeline {
                 }
             }
         }
-        stage('Sonarqube Analysis') {
+        stage('SonarQube analysis') {
             steps {
-                withSonarQubeEnv('Your Sonar Server Name here') {
-                    bat '''
-                        ${JENKINS_HOME}/tools/hudson.plugins.sonar.SonarRunnerInstallation/SonarQube_Scanner/bin/sonar-scanner \
-                        -Dsonar.host.url=http://localhost:9000/ \
-                        -Dsonar.login=sonarqubecred \
-                        -Dsonar.projectKey=Universities \
-                        -Dsonar.projectName=Universities-$BUILD_NUMBER
-                    '''
-                }
+                bat "npm run sonar"
             }
         }
         stage('Building our image') {

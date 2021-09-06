@@ -20,8 +20,9 @@
     "start": "set PORT=3050 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "jest": "jest",
-    "eject": "react-scripts eject"
+    "jest": "jest --coverage",
+    "eject": "react-scripts eject",
+    "sonar": "node sonarqube-scanner.js"
   },
   "eslintConfig": {
     "extends": [
@@ -44,7 +45,8 @@
   "devDependencies": {
     "identity-obj-proxy": "^3.0.0",
     "jest-cucumber": "^3.0.1",
-    "react-test-renderer": "^17.0.2"
+    "react-test-renderer": "^17.0.2",
+    "sonarqube-scanner": "^2.8.1"
   },
   "jest": {
     "testMatch": [
@@ -58,7 +60,8 @@
     "collectCoverage": true,
     "coverageReporters": [
       "text",
-      "cobertura"
+      "cobertura",
+      "lcov"
     ],
     "moduleNameMapper": {
       "^.+.(svg|png|jpg)$": "identity-obj-proxy",
