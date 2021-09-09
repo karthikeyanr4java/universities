@@ -55,13 +55,13 @@ pipeline {
         }
         stage('Checkout helm chart') {
             steps {
+                bat 'rm -rf chart'
                 bat 'git clone https://github.com/karthikeyanr4java/helm-chart-ui.git chart'
             }
         }
         stage('Run Helm chart') {
             agent any
             steps {
-                bat 'rm -rf chart'
                 bat 'helm install ./chart'
             }
         }
