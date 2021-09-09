@@ -59,13 +59,14 @@ pipeline {
             }
         }
         stage('Run Helm chart') {
+            agent any
             steps {
                 bat 'helm install ./chart'
             }
         }
         stage('Get service url from Minikube') {
             steps {
-                bat 'helm install ./chart'
+                bat 'helm version'
             }
         }
     }
