@@ -53,12 +53,20 @@ pipeline {
                 }
             }
         }
-        /*
-        stage('Cleaning up') {
+        stage('Checkout helm chart') {
             steps {
-                sh "docker rmi $registry:latest"
+                bat 'git clone https://github.com/karthikeyanr4java/helm-chart-ui.git chart'
             }
         }
-        */
+        stage('Run Helm chart') {
+            steps {
+                bat 'helm install ./chart'
+            }
+        }
+        stage('Get service url from Minikube') {
+            steps {
+                bat 'helm install ./chart'
+            }
+        }
     }
 }
