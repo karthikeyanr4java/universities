@@ -61,6 +61,7 @@ pipeline {
         stage('Run Helm chart') {
             agent any
             steps {
+                bat 'rm -rf chart'
                 bat 'helm install ./chart'
             }
         }
