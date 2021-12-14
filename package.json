@@ -9,7 +9,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
     "react": "^17.0.2",
-    "react-data-table-component": "^7.0.0-rc7",
+    "react-data-table-component": "^7.4.5",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "react-searchable-dropdown": "^2.0.3",
